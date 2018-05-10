@@ -8,22 +8,23 @@ import {
 
 import ImagePicker from 'react-native-image-crop-picker';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
 type Props = {};
 export default class App extends Component<Props> {
-  _pick(cropit, circular = false) {
-    ImagePicker.openPicker({
+  constructor() {
+    super();
+    this.state = {
+      image: null
+    };
+  }
+
+  _take(cropit) {
+    ImagePicker.openCamera({
       width: 300,
       height: 400,
-      cropping: true
+      cropping: cropit
     }).then(image => {
       console.log(image);
+      this.state
     });
   }
 
@@ -32,7 +33,7 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <Button
           onPress={() => this._pick(true)}
-          title="Pick"
+          title="Take photo"
           color="#841584"
         />
       </View>
