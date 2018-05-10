@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
-  Text,
-  View
+  View,
+  Button
 } from 'react-native';
+
+import ImagePicker from 'react-native-image-crop-picker';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -15,12 +17,24 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  _pick(cropit, circular = false) {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      console.log(image);
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          Bunlong
-        </Text>
+        <Button
+          onPress={() => this._pick(true)}
+          title="Pick"
+          color="#841584"
+        />
       </View>
     );
   }
