@@ -11,7 +11,6 @@ import {
 import ImagePicker from 'react-native-image-crop-picker';
 import {Actions} from 'react-native-router-flux'
 
-type Props = {};
 export default class Home extends Component {
   constructor() {
     super();

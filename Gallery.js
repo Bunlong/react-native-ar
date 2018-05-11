@@ -3,13 +3,28 @@ import {
   Platform,
   StyleSheet,
   View,
-  Button,
   CameraRoll,
-  Alert,
   ScrollView,
   Text,
   Image
 } from 'react-native';
+
+const App = ({photos}) => (
+  <ScrollView>
+    {photos.map((p, i) => {
+      return (
+        <Image
+          key={i}
+          style={{
+            width: 200,
+            height: 200,
+          }}
+          source={{ uri: p.node.image.uri }}
+        />
+      );
+    })}
+  </ScrollView>
+);
 
 export default class Gallery extends Component {
   constructor() {
@@ -18,10 +33,10 @@ export default class Gallery extends Component {
   }
 
   componentDidMount() {
-    this._getPhotos();
+    this._fetchPhotos();
   }
 
-  _getPhotos = () => {
+  _fetchPhotos = () => {
     CameraRoll.getPhotos({
       first: 20,
       assetType: 'Photos',
@@ -42,20 +57,7 @@ export default class Gallery extends Component {
 
     return (
       <View>
-        <ScrollView>
-          {this.state.photos.map((p, i) => {
-            return (
-              <Image
-                key={i}
-                style={{
-                  width: 200,
-                  height: 200,
-                }}
-                source={{ uri: p.node.image.uri }}
-              />
-            );
-          })}
-       </ScrollView>
+       <App photos={this.state.photos} />
       </View>
     );
   }
