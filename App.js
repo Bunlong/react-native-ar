@@ -3,7 +3,9 @@ import {
   Platform,
   StyleSheet,
   View,
-  Button
+  Button,
+  CameraRoll,
+  Alert
 } from 'react-native';
 
 import ImagePicker from 'react-native-image-crop-picker';
@@ -23,8 +25,9 @@ export default class App extends Component<Props> {
       height: 400,
       cropping: cropit
     }).then(image => {
-      console.log(image);
-      this.state
+      CameraRoll.saveToCameraRoll(image.path)
+        .then(Alert.alert('Success', 'Photo added to camera roll!'))
+        .catch(err => console.log('err:', err));
     });
   }
 
@@ -32,7 +35,7 @@ export default class App extends Component<Props> {
     return (
       <View style={styles.container}>
         <Button
-          onPress={() => this._pick(true)}
+          onPress={() => this._take(true)}
           title="Take photo"
           color="#841584"
         />
